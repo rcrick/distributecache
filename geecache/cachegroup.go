@@ -60,7 +60,6 @@ func (g *CacheGroup) Get(key string) (ByteView, error) {
 	return g.load(key)
 }
 func (g *CacheGroup) load(key string) (value ByteView, err error) {
-	fmt.Print("=======peers=", g.peers)
 	if peer, ok := g.peers.PickPeer(key); ok {
 		if value, err = g.getFromPeer(peer, key); err == nil {
 			return value, nil
@@ -71,7 +70,6 @@ func (g *CacheGroup) load(key string) (value ByteView, err error) {
 }
 
 func (g *CacheGroup) getFromPeer(peer PeerGetter, key string) (ByteView, error) {
-	fmt.Print("========", peer)
 	bytes, err := peer.Get(g.name, key)
 	if err != nil {
 		return ByteView{}, err
